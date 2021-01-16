@@ -4,19 +4,19 @@ const ChoresService = require('../services/chores-service')
 const ChoresRouter = express.Router();
 
 ChoresRouter.route('/chores')
-    .get((req, res) => {
-        const db = req.app.get('db');
-        ChoresService.getChores(db)
-          .then(chores => res.json(chores))
-      })
-    .post((req, res) => {
+  .get((req, res) => {
       const db = req.app.get('db');
-      const { name } = req.body;
-      ChoresService.createChore(db, {name})
-        .then(chores => {
-          return res.json(chores[0]);
-      })
+      ChoresService.getChores(db)
+        .then(chores => res.json(chores))
     })
+  .post((req, res) => {
+    const db = req.app.get('db');
+    const { name } = req.body;
+    ChoresService.createChore(db, {name})
+      .then(chores => {
+        return res.json(chores[0]);
+    })
+  })
 
 ChoresRouter.route('/chores/:id')
   .get((req, res) => {
